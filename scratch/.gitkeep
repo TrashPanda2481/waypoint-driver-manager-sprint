@@ -1,0 +1,4 @@
+This folder is gitignored — everything you put in here stays on your machine.
+
+The file you're reading is the one exception, so that the folder itself exists
+when you clone. Ignore it.

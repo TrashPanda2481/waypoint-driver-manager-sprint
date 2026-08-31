@@ -1,0 +1,36 @@
+# yours, and it stays yours — the folder ships, its contents never do
+scratch/*
+!scratch/.gitkeep
+
+# secrets — never commit these
+.env
+.env.*
+*.pem
+*.key
+secrets.*
+
+# os junk
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# editors
+.vscode/
+.idea/
+*.swp
+
+# common build output — harmless if your project doesn't have these
+node_modules/
+dist/
+build/
+__pycache__/
+*.pyc
+venv/
+.venv/
+
+# unity, if that's your thing
+[Ll]ibrary/
+[Tt]emp/
+[Oo]bj/
+[Bb]uild[s]/
+[Ll]ogs/
