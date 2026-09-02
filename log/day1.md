@@ -1,26 +1,33 @@
 # Day 1
 
-*One paragraph. Five minutes. What you made, what broke, what you decided.*
+*One paragraph. Five minutes. What I made, what broke, what I decided.*
 
-**Made:** the launcher (manifest rendering, WinPE/live detection, launching tools, the Manage
-Tools screen), seven built-in scripts, the WinPE build pipeline, my own branded UEFI GRUB2 menu
-(WinPE plus Clonezilla, ShredOS, Memtest86+, GParted, SystemRescue), the deploy script, and about
-41 tools auto-fetched. Built a real 239 GB stick and boot-tested it on real UEFI hardware.
+**Made:** the whole cross-platform core (device/candidate matching, no I/O, fully unit-tested),
+the engine orchestration (scan → plan → backup → install → verify → rollback with an append-only
+JSON-Lines audit log), the content-addressed local cache source, the CLI (`scan`/`plan`/`apply`,
+JSON in/out, real exit codes, dry-run), and the PySide6 GUI wired to the engine (scan button →
+background QThread → engine → tree view, headless-Qt tested), all sharing one
+`build_default_engine()` factory so the GUI and CLI can't drift. Then four OEM catalog sources —
+Dell per-device (`CatalogPC.cab`, a real `DriverSource`), Dell driver-pack and Lenovo (model-keyed
+via a new `ModelDriverPackSource` protocol), and HP (platform-list lookup only). 36 tests passing,
+and all four OEM `refresh()` pipelines live-validated once against the real vendor catalogs.
 
-**Broke:** reboot/shutdown was calling shutdown.exe, which just doesn't work inside WinPE — had
-to switch to wpeutil. GRUB's theme and font stopped loading because grub-mkstandalone pins
-$prefix to its own memdisk, so the font path I was using didn't actually exist — fixed by
-pointing it at the ESP instead. The USB wipe kept racing Windows, which auto-inits a freshly
-cleaned disk back to MBR before I could convert it to GPT — fixed by looping the convert until
-it actually sticks. And Bitdefender quarantined and write-locked a bunch of repo files it didn't
-like the look of (NirSoft, vt-cli, FRST) until I added exclusions.
+**Broke / found:** HP's real per-update feed (`HpCatalogForSms.latest.cab`) turned out to be a
+WSUS SDP with applicability as arbitrary WQL, not a flat HWID/model list — so per-device HP
+matching got scoped out honestly instead of faked. Lenovo's `crc` field is actually a SHA-256, not
+a CRC32, so it's reported as `sha256` rather than trusted at face value. Dell publishes only MD5
+per component, so `search()` honestly returns `sha256=""` and `fetch()` verifies the MD5 then
+computes a real SHA-256 of the verified bytes. And the Lenovo pack's SHA-256 claim rests on a
+64-char length match, not a downloaded-and-hashed file (the pack was ~300MB) — flagged as unproven
+for Lenovo specifically, unlike Dell where the real 10.37MB file was downloaded and hashed.
 
-**Decided:** build my own branded GRUB2 menu instead of trying to do the Ventoy arbitrary-ISO
-thing — I already know the whole payload, so I don't need that. Split tools into a small WinPE-
-baked core plus a big exFAT data partition so the same folder works whether it's booted or just
-plugged in. Ship this as source with a fetch script instead of a prebuilt image, since most of
-the tools are freeware I can't redistribute anyway.
+**Decided:** on-demand pluggable sourcing instead of a monolithic 20–60 GB offline archive; a
+separate `ModelDriverPackSource` protocol for the model-keyed catalogs rather than stretching
+`DriverSource` into a shape it wasn't built for; OEM sourcing opt-in (not on every scan) because
+Dell's `CatalogPC.xml` alone is ~57MB; and CI runs against small real-data fixtures trimmed from
+the live catalogs, not the live network, so it never depends on Dell's/Lenovo's/HP's servers.
 
-**Checkpoint — hit or missed, and why:** Hit, and honestly went further than I expected. The
-launcher rendering inside WinPE was the actual goal and it proved out in a VM, then the next day
-it boot-tested clean on real hardware too.
+**Checkpoint — hit or missed, and why:** Hit for what day 1 was actually about — the engine,
+sources, and GUI wiring all pass, and every OEM pipeline proved out against live data. But honest:
+nothing has touched real Windows hardware. The device backend and the entire safe install/rollback
+chain are written and unrun, which is exactly what day 2 onward targets.
