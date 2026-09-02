@@ -1,8 +1,8 @@
-# yours, and it stays yours — the folder ships, its contents never do
+# yours, and it stays yours - the folder ships, its contents never do
 scratch/*
 !scratch/.gitkeep
 
-# secrets — never commit these
+# secrets - never commit these
 .env
 .env.*
 *.pem
@@ -19,7 +19,7 @@ desktop.ini
 .idea/
 *.swp
 
-# common build output — harmless if your project doesn't have these
+# common build output - harmless if your project doesn't have these
 node_modules/
 dist/
 build/

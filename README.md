@@ -1,9 +1,9 @@
-# Waypoint Driver Manager — Make and Do sprint
+# Waypoint Driver Manager - Make and Do sprint
 
 **This is the sprint record, not the product.** The actual code lives in its own repo
 (**[TrashPanda2481/Waypoint-Driver-Manager](https://github.com/TrashPanda2481/Waypoint-Driver-Manager)**).
 This folder is the fortnight-shaped account of getting it from "passes its own tests" to
-"safely installs and rolls back a driver on a real Windows machine" — one scope, one map, one
+"safely installs and rolls back a driver on a real Windows machine" - one scope, one map, one
 riskiest part, and a paragraph a day.
 
 ---
@@ -20,7 +20,7 @@ log/dayN.md         one paragraph a day
 scratch/            mine. gitignored. never leaves this machine.
 ```
 
-The five markdown files are the sprint record. The work itself is the separate Waypoint repo —
+The five markdown files are the sprint record. The work itself is the separate Waypoint repo -
 this folder just tracks the two weeks honestly.
 
 ---
@@ -40,7 +40,7 @@ is for.** Worth keeping the habit.
 ## History
 
 This repo started life as the Vector Toolset sprint and was overwritten and renamed to track
-Waypoint instead — Vector's fortnight had already landed, Waypoint's riskiest part hadn't. The
+Waypoint instead - Vector's fortnight had already landed, Waypoint's riskiest part hadn't. The
 old day-1 Vector entry stays in the git history; the working tree is Waypoint from here.
 
 ---
@@ -51,7 +51,7 @@ Once a day is plenty for a fortnight:
 
 ```bash
 git add -A
-git commit -m "day 2 — restore point actually created on real hardware"
+git commit -m "day 2 - restore point actually created on real hardware"
 git push
 ```
 
