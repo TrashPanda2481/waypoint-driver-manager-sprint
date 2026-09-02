@@ -11,9 +11,11 @@ riskiest part, and a paragraph a day.
 ## What's in here
 
 ```
-00-SCOPE.md         the one thing + the demo-ready definition I'll be held to
-01-MAP.md           the four stages + the one genesis component
-02-RISK.md          the riskiest part + tomorrow's binary checkpoint
+00-SCOPE.md         the one thing + the demo-ready definition I'll be held to   (day 1)
+01-MAP.md           the four stages + the one genesis component                 (day 1)
+02-RISK.md          the riskiest bet, then the reality test it barely survived  (day 1-2)
+01-BETS.md          the ten bets, sorted by cost of being wrong                 (day 2)
+03-PATH.md          the walking skeleton: the whole path, ugliest form          (day 3)
 log/dayN.md         one paragraph a day
 scratch/            mine. gitignored. never leaves this machine.
 ```
